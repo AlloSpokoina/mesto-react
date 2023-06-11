@@ -1,43 +1,16 @@
-import './App.css';
-
+import Header from "./Header/Header.jsx";
+import Main from "./Main/Main.jsx";
+import Footer from "./Footer/footer.jsx";
 function App() {
   return (
     <div className="page__container">
-      <header className="header">
-        <img
-          className="header__logo"
-          src="<%=require('./images/logo.svg')%>"
-          alt="Логотип"
-        />
-      </header>
-      <main>
-        <section className="profile" aria-label="Info profile">
-          <div className="profile__avatar-info">
-            <button type="button" className="profile__avatar-overlay">
-              <img className="profile__avatar" src="#" alt="Аватар профиля" />
-            </button>
-            <div className="profile__info">
-              <div className="profile__info-edit">
-                <h1 className="profile__name" />
-                <button
-                  className="profile__edit-button"
-                  type="button"
-                  aria-label="button edit"
-                />
-              </div>
-              <p className="profile__description" />
-            </div>
-          </div>
-          <button
-            className="profile__add-button"
-            type="button"
-            aria-label="add info"
-          />
-        </section>
-      </main>
-      <footer className="footer">
-        <p className="footer__copyright">© 2023 Mesto Russia</p>
-      </footer>
+
+      <Header/>
+
+      <Main/>
+
+      <Footer/>
+
       <div className="popup" id="popupProfile">
         <div className="popup__container">
           <button
