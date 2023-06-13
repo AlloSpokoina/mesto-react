@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import api from "../../utils/api"
 import Card from "../Card/Card"
 
-export default function Main({onEditProfile, onAddPlace, onEditAvatar,}) {
+export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
   const [userName, setUserName] = useState('')
   const [userDescription, setUserDescription] = useState('')
   const [userAvatar, setUserAvatar] = useState('')
@@ -48,7 +48,7 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar,}) {
       </section>
       <section className="element" aria-label="Photo card">
      {cards.map(data => {
-        return ( <article className="element__card" key = {data._id}><Card card={data} /></article>
+        return ( <article className="element__card" key = {data._id}><Card card={data} onCardClick={onCardClick}/></article>
         )
       })}
       </section>

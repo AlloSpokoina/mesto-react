@@ -10,6 +10,9 @@ function App() {
   const [isEditProfilePopupOpen,setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen,setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen,setisEditAvatarPopupOpen] = useState(false)
+  const [selectedCard, setSelectedCard] = useState({})
+  const [isImagePopup, setIsImagePopup] = useState(false)
+
 
   function handleEditProfileClick() {
     setIsEditProfilePopupOpen(true)
@@ -27,13 +30,18 @@ function App() {
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
     setisEditAvatarPopupOpen(false)
+    setIsImagePopup(false)
   }
 
   //function handleDeleteClick() {
   //}
 
-  //function handleCard() {
-  //}
+  function handleCardClick(card) {
+    setSelectedCard(card)
+    setIsImagePopup(true)
+    //setEventListeners()
+  }
+
   return (
     <div className="page__container">
 
@@ -43,6 +51,7 @@ function App() {
       onEditProfile = {handleEditProfileClick}
       onAddPlace = {handleAddPlaceClick}
       onEditAvatar = {handleEditAvatarClick}
+      onCardClick = {handleCardClick}
       />
 
       <Footer/>
@@ -127,7 +136,11 @@ function App() {
         title='Вы уверенны'
         titleButton='Да'
       />
-      <PopupImage/>
+
+      <PopupImage
+      card={selectedCard}
+      isOpen={isImagePopup}
+      onClose={closeAllPopups}/>
     </div>
 
   );
