@@ -1,3 +1,4 @@
+
 export default function Card({ card, onCardClick }) {
   return (
     <article className="element__card">
