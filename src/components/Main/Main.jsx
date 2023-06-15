@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import api from "../../utils/api"
 import Card from "../Card/Card"
 
-export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
+export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick }) {
   const [userName, setUserName] = useState('')
   const [userDescription, setUserDescription] = useState('')
   const [userAvatar, setUserAvatar] = useState('')
@@ -15,10 +15,13 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
         setUserName(dataUser.name)
         setUserDescription(dataUser.about)
         setUserAvatar(dataUser.avatar)
-        dataCards.forEach(data => data.myid = dataUser._id)
-        setCards(dataCards)
+        if (Array.isArray(dataCards)) {
+          dataCards.forEach(data => data.myid = dataUser._id)
+          setCards(dataCards)
+        }
       })
-  },[])
+      .catch((error) => console.error(`Ошибка при загрузке данных ${error}`));
+  }, [])
   return (
     <main>
       <section className="profile" aria-label="Info profile">
