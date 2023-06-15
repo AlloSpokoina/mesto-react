@@ -47,10 +47,11 @@ export default function Main({onEditProfile, onAddPlace, onEditAvatar, onCardCli
         />
       </section>
       <section className="element" aria-label="Photo card">
-     {cards.map(data => {
-        return ( <article className="element__card" key = {data._id}><Card card={data} onCardClick={onCardClick}/></article>
-        )
-      })}
+        {cards.map(data => {
+          return (<article className="element__card" key={data._id}><Card card={data} onCardClick={onCardClick} />
+          </article>
+          )
+        })}
       </section>
     </main>
   )

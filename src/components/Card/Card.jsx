@@ -3,7 +3,7 @@ export default function Card({ card, onCardClick }) {
     <article className="element__card">
       <button className="element__delete" type="button" aria-label="delete" />
       <img className="element__image" src={card.link} alt={`Изображение ${card.name}`}
-      onClick={() => onCardClick({link: card.link, name: card.name})}
+      onClick={() => onCardClick(card)}
       />
       <div className="element__description">
         <h2 className="element__title">{card.name}</h2>
