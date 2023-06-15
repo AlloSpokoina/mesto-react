@@ -7,9 +7,9 @@ import { useState } from "react";
 
 function App() {
 
-  const [isEditProfilePopupOpen,setIsEditProfilePopupOpen] = useState(false)
-  const [isAddPlacePopupOpen,setIsAddPlacePopupOpen] = useState(false)
-  const [isEditAvatarPopupOpen,setisEditAvatarPopupOpen] = useState(false)
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
+  const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState({})
   const [isImagePopup, setIsImagePopup] = useState(false)
   console.log()
@@ -41,22 +41,22 @@ function App() {
   return (
     <div className="page__container">
 
-      <Header/>
+      <Header />
 
       <Main
-      onEditProfile = {handleEditProfileClick}
-      onAddPlace = {handleAddPlaceClick}
-      onEditAvatar = {handleEditAvatarClick}
-      onCardClick = {handleCardClick}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+        onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}
       />
 
-      <Footer/>
+      <Footer />
 
       <PopupWhithForm
         name='popupProfile'
         title='Редактировать профиль'
         isOpen={isEditProfilePopupOpen}
-        onClose = {closeAllPopups}
+        onClose={closeAllPopups}
       > <input
           className="popup__input popup__input_type_name"
           type="text"
@@ -86,7 +86,7 @@ function App() {
         title='Новое место'
         titleButton='Создать'
         isOpen={isAddPlacePopupOpen}
-        onClose = {closeAllPopups}
+        onClose={closeAllPopups}
       >
         <input
           className="popup__input popup__input_type_card"
@@ -114,7 +114,7 @@ function App() {
         name='popupAvatar'
         title='Обновить аватар'
         isOpen={isEditAvatarPopupOpen}
-        onClose = {closeAllPopups}
+        onClose={closeAllPopups}
       >
         <input
           className="popup__input popup__input_type_link"
@@ -134,9 +134,9 @@ function App() {
       />
 
       <PopupImage
-      card={selectedCard}
-      isOpen={isImagePopup}
-      onClose={closeAllPopups}/>
+        card={selectedCard}
+        isOpen={isImagePopup}
+        onClose={closeAllPopups} />
     </div>
 
   );
