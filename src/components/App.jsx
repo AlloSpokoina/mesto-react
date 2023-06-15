@@ -1,7 +1,7 @@
 import Header from "./Header/Header.jsx";
 import Main from "./Main/Main.jsx";
-import Footer from "./Footer/footer.jsx";
-import PopupWhithForm from "./PopupWithForm/PopupWhithForm.jsx";
+import Footer from "./Footer/Footer.jsx";
+import PopupWithForm from "./PopupWithForm/PopupWithForm.jsx";
 import ImagePopup from "./ImagePopup/ImagePopup.jsx";
 import { useState } from "react";
 
@@ -52,7 +52,7 @@ function App() {
 
       <Footer />
 
-      <PopupWhithForm
+      <PopupWithForm
         name='popupProfile'
         title='Редактировать профиль'
         isOpen={isEditProfilePopupOpen}
@@ -79,9 +79,9 @@ function App() {
           required=""
         />
         <span className="popup__error" id="popupProfileInfo-error" />
-      </PopupWhithForm>
+      </PopupWithForm>
 
-      <PopupWhithForm
+      <PopupWithForm
         name='popupCard'
         title='Новое место'
         titleButton='Создать'
@@ -108,9 +108,9 @@ function App() {
           required=""
         />
         <span className="popup__error" id="cardInputLink-error" />
-      </PopupWhithForm>
+      </PopupWithForm>
 
-      <PopupWhithForm
+      <PopupWithForm
         name='popupAvatar'
         title='Обновить аватар'
         isOpen={isEditAvatarPopupOpen}
@@ -125,9 +125,9 @@ function App() {
           required=""
         />
         <span className="popup__error" id="cardInputLinkAvatar-error" />
-      </PopupWhithForm>
+      </PopupWithForm>
 
-      <PopupWhithForm
+      <PopupWithForm
         name='popupDelete'
         title='Вы уверенны'
         titleButton='Да'
