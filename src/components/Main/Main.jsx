@@ -51,9 +51,7 @@ export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardCl
       </section>
       <section className="element" aria-label="Photo card">
         {cards.map(data => {
-          return (<article className="element__card" key={data._id}><Card card={data} onCardClick={onCardClick} />
-          </article>
-          )
+          return <Card key = { data._id } card={data} onCardClick={onCardClick} />
         })}
       </section>
     </main>
