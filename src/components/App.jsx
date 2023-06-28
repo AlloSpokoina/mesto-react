@@ -14,16 +14,21 @@ function App() {
   const [isEditAvatarPopupOpen, setisEditAvatarPopupOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState({})
   const [isImagePopup, setIsImagePopup] = useState(false)
+  const [isDeletePopup, setDeletePopup] = useState(false)
 
   const [currentUser, setCurrentUser] = useState({})
 
+  const [loading, setLoading] = useState(true)
   const [cards, setCards] = useState([])
+  const [deleteCardId, setDeleteCardId] = useState('')
+
 
   const setStatesForCloseAllPopups = useCallback(() => {
     setIsEditProfilePopupOpen(false)
     setIsAddPlacePopupOpen(false)
     setisEditAvatarPopupOpen(false)
     setIsImagePopup(false)
+    setDeletePopup(false)
   }, [])
 
   const closePopupEsc = useCallback((evt) => {
@@ -63,13 +68,30 @@ function App() {
     setEvantListenerForDocument()
   }
 
+  function handleDeletePopup (cardId) {
+    setDeleteCardId(cardId)
+    setDeletePopup(true)
+  }
+
   useEffect(() => {
+    setLoading(true)
     Promise.all([api.getInfo(), api.getCards()])
       .then(([dataUser, dataCards]) => {
         setCurrentUser(dataUser)
         setCards(dataCards)
-      });
+        setLoading(false)
+      })
+      .catch((error) => console.error(`Ошибка при загрузке данных ${error}`));
   }, [])
+
+  function handleDeleteSubmit(evt) {
+    evt.preventDefault()
+    api.deleteCard(deleteCardId)
+    .then(res => {
+      closeAllPopups()
+    })
+    .catch((error) => console.error(`Ошибка удаления карточки ${error}`))
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -83,6 +105,8 @@ function App() {
           onEditAvatar={handleEditAvatarClick}
           onCardClick={handleCardClick}
           cards={cards}
+          loading={loading}
+          onDelete={handleDeletePopup}
         />
 
         <Footer />
@@ -166,6 +190,7 @@ function App() {
           name='popupDelete'
           title='Вы уверенны'
           titleButton='Да'
+          isOpen={isDeletePopup}
         />
 
         <ImagePopup

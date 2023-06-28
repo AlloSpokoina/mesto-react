@@ -1,6 +1,6 @@
 import React from "react"
 
-export default function PopupWithForm({ name, title, titleButton, children, isOpen, onClose }) {
+export default function PopupWithForm({ name, title, titleButton, children, isOpen, onClose, onSubmit }) {
   return (
     <div className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`} onClick={onClose}>
       <div className="popup__container" onClick={(evt => evt.stopPropagation())}>
@@ -14,6 +14,7 @@ export default function PopupWithForm({ name, title, titleButton, children, isOp
         <form
           className="popup__form"
           name={name}
+          onSubmit={onSubmit}
         >
           {children}
           <button className="popup__submit" aria-label="save" type="submit">
