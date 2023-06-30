@@ -62,13 +62,13 @@ class Api {
   }
 
   addLike(cardId) {
-    return this._request(`${this._url}/cards/${cardId}/likes`, {
+    return this._request(`${this._url}/cards/${cardId}/like`, {
       method: 'PUT'
     });
   }
 
   deleteLike(cardId) {
-    return this._request(`${this._url}/cards/${cardId}/likes`, {
+    return this._request(`${this._url}/cards/${cardId}/like`, {
       method: 'DELETE'
     });
   }

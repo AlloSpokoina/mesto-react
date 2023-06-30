@@ -21,9 +21,10 @@ export default function AddPlacePopup({isOpen, onClose, onAddPlace, loadingButto
       name='popupCard'
       title='Новое место'
       titleButton='Создать'
-      isOpen={isAddPlacePopupOpen}
+      isOpen={isOpen}
       onClose={resetClose}
       isValid={isValid}
+      onSubmit={handleSubmit}
     >
       <input
         className={`popup__input popup__input_type_card ${isInputValid.name === undefined || isInputValid.name ? '' : 'popup__error'}`}

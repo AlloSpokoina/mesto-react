@@ -165,8 +165,8 @@ function handleSubmitPlace(dataCard, reset) {
         />
 
         <AddPlacePopup
-          onAddPlace={handleSubmitPlace}
           isOpen={isAddPlacePopupOpen}
+          onAddPlace={handleSubmitPlace}
           onClose={closeAllPopups}
           loadingButtonDelete={loadingButtonDelete}
         />

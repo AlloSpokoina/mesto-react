@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import api from "../../utils/api"
 
 
-export default function Like({ likes, myid, cardid }) {
+export default function Like({ likes, myid, cardId }) {
   const [isLike, setIsLike] = useState(false)
   const [count, setCount] = useState(likes.length)
 
@@ -12,14 +12,14 @@ export default function Like({ likes, myid, cardid }) {
 
   function handleLike() {
     if (isLike) {
-      api.deleteLike(cardid)
+      api.deleteLike(cardId)
         .then(res => {
           setIsLike(false)
           setCount(res.likes.length)
         })
         .catch((error) => console.error(`Ошибка при клике на лайк ${error}`))
     } else {
-      api.addLike(cardid)
+      api.addLike(cardId)
         .then(res => {
           setIsLike(true)
           setCount(res.likes.length)
