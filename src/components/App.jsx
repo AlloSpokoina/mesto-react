@@ -7,6 +7,8 @@ import { useCallback, useEffect, useState } from "react";
 import CurrentUserContext from '../contexts/CurrentUserContext.js'
 import api from '../utils/api.js'
 import EditProfilePopup from "./EditProfilePopup/EditProfilePopup.jsx";
+import EditAvatarPopup from "./EditAvatarPopup/EditAvatarPopup.jsx";
+import AddPlacePopup from "./AddPlacePopup/AddPlacePopup.jsx";
 
 function App() {
 
@@ -70,11 +72,47 @@ function App() {
     setEvantListenerForDocument()
   }
 
-  function handleDeletePopup (cardId) {
+  function handleDeletePopup(cardId) {
     setDeleteCardId(cardId)
     setDeletePopup(true)
     setEvantListenerForDocument()
   }
+
+  function handleUpdateUser(dataUser, reset) {
+    setLoadingButtonDelete(true)
+    api.setUserInfo(dataUser)
+      .then(res => {
+        setCurrentUser(res)
+        closeAllPopups()
+        reset()
+        setLoadingButtonDelete(false)
+      })
+      .catch((error) => console.error(`Ошибка при вводе данных ${error}`));
+  }
+
+  function handleUpdateAvatar(dataUser, reset) {
+    setLoadingButtonDelete(true)
+    api.setAddNewAvatar(dataUser)
+      .then(res => {
+        setCurrentUser(res)
+        closeAllPopups()
+        reset()
+        setLoadingButtonDelete(false)
+      })
+      .catch((error) => console.error(`Ошибка при обновлении аватара ${error}`));
+  }
+
+function handleSubmitPlace(dataCard, reset) {
+  setLoadingButtonDelete(true)
+  api.addCard(dataCard)
+  .then((res) => {
+    setCards([res, ...cards])
+    closeAllPopups()
+    reset()
+    setLoadingButtonDelete(false)
+  })
+  .catch((error) => console.error(`Ошибка добавления карточки ${error}`));
+}
 
   useEffect(() => {
     setLoading(true)
@@ -120,54 +158,25 @@ function App() {
         <Footer />
 
         <EditProfilePopup
+          onUpdateUser={handleUpdateUser}
           isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups} />
+          onClose={closeAllPopups}
+          loadingButtonDelete={loadingButtonDelete}
+        />
 
-        <PopupWithForm
-          name='popupCard'
-          title='Новое место'
-          titleButton='Создать'
+        <AddPlacePopup
+          onAddPlace={handleSubmitPlace}
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            className="popup__input popup__input_type_card"
-            id="cardInputName"
-            type="text"
-            name="name"
-            placeholder="Название"
-            minLength={2}
-            maxLength={30}
-            required=""
-          />
-          <span className="popup__error" id="cardInputName-error" />
-          <input
-            className="popup__input popup__input_type_link"
-            id="cardInputLink"
-            type="url"
-            name="link"
-            placeholder="Ссылка на изображение"
-            required=""
-          />
-          <span className="popup__error" id="cardInputLink-error" />
-        </PopupWithForm>
+          loadingButtonDelete={loadingButtonDelete}
+        />
 
-        <PopupWithForm
-          name='popupAvatar'
-          title='Обновить аватар'
+        <EditAvatarPopup
+          onUpdateAvatar={handleUpdateAvatar}
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-        >
-          <input
-            className="popup__input popup__input_type_link"
-            id="cardInputLinkAvatar"
-            type="url"
-            name="avatar"
-            placeholder="Ссылка на изображение"
-            required=""
-          />
-          <span className="popup__error" id="cardInputLinkAvatar-error" />
-        </PopupWithForm>
+          loadingButtonDelete={loadingButtonDelete}
+        />
 
         <PopupWithForm
           name='popupDelete'
