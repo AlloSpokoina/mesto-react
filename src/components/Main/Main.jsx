@@ -4,7 +4,7 @@ import CurrentUserContext from "../../contexts/CurrentUserContext"
 import Spinner from "../Spinner/Spinner.jsx"
 
 export default function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, cards, loading, onDelete }) {
-const currentUser = useContext(CurrentUserContext)
+  const currentUser = useContext(CurrentUserContext)
 
 
   return (
@@ -35,8 +35,8 @@ const currentUser = useContext(CurrentUserContext)
         />
       </section>
       <section className="element" aria-label="Photo card">
-        {loading ? <Spinner/> : cards.map(data => {
-          return <Card key = { data._id } card={data} onCardClick={onCardClick} onDelete={onDelete} />
+        {loading ? <Spinner /> : cards.map(data => {
+          return <Card key={data._id} card={data} onCardClick={onCardClick} onDelete={onDelete} />
         })}
       </section>
     </main>
