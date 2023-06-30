@@ -6,6 +6,7 @@ import ImagePopup from "./ImagePopup/ImagePopup.jsx";
 import { useCallback, useEffect, useState } from "react";
 import CurrentUserContext from '../contexts/CurrentUserContext.js'
 import api from '../utils/api.js'
+import EditProfilePopup from "./EditProfilePopup/EditProfilePopup.jsx";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [cards, setCards] = useState([])
   const [deleteCardId, setDeleteCardId] = useState('')
+  const [loadingButtonDelete, setLoadingButtonDelete] = useState(false)
 
 
   const setStatesForCloseAllPopups = useCallback(() => {
@@ -71,6 +73,7 @@ function App() {
   function handleDeletePopup (cardId) {
     setDeleteCardId(cardId)
     setDeletePopup(true)
+    setEvantListenerForDocument()
   }
 
   useEffect(() => {
@@ -86,11 +89,16 @@ function App() {
 
   function handleDeleteSubmit(evt) {
     evt.preventDefault()
+    setLoadingButtonDelete(true)
     api.deleteCard(deleteCardId)
-    .then(res => {
-      closeAllPopups()
-    })
-    .catch((error) => console.error(`Ошибка удаления карточки ${error}`))
+      .then(() => {
+        setCards(cards.filter(card => {
+          return card._id !== deleteCardId
+        }))
+        closeAllPopups()
+        setLoadingButtonDelete(false)
+      })
+      .catch((error) => console.error(`Ошибка удаления карточки ${error}`))
   }
 
   return (
@@ -111,34 +119,9 @@ function App() {
 
         <Footer />
 
-        <PopupWithForm
-          name='popupProfile'
-          title='Редактировать профиль'
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-        > <input
-            className="popup__input popup__input_type_name"
-            type="text"
-            name="name"
-            minLength={2}
-            maxLength={40}
-            placeholder="Имя"
-            id="popupProfileName"
-            required=""
-          />
-          <span className="popup__error" id="popupProfileName-error" />
-          <input
-            className="popup__input popup__input_type_info"
-            type="text"
-            name="info"
-            minLength={2}
-            maxLength={200}
-            placeholder="О себе"
-            id="popupProfileInfo"
-            required=""
-          />
-          <span className="popup__error" id="popupProfileInfo-error" />
-        </PopupWithForm>
+          onClose={closeAllPopups} />
 
         <PopupWithForm
           name='popupCard'
@@ -191,6 +174,9 @@ function App() {
           title='Вы уверенны'
           titleButton='Да'
           isOpen={isDeletePopup}
+          onSubmit={handleDeleteSubmit}
+          loadingButtonDelete={loadingButtonDelete}
+          onClose={closeAllPopups}
         />
 
         <ImagePopup
