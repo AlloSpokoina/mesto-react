@@ -44,12 +44,12 @@ function App() {
 
   useEffect(() => {
     function closeByEscape(evt) {
-      if(evt.key === 'Escape') {
+      if (evt.key === 'Escape') {
         closeAllPopups();
       }
     }
 
-    if(isOpen) {
+    if (isOpen) {
       document.addEventListener('keydown', closeByEscape);
     }
 

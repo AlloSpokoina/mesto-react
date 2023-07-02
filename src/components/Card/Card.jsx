@@ -1,14 +1,11 @@
 import { useContext } from "react"
 import CurrentUserContext from "../../contexts/CurrentUserContext"
-//import Like from "../Like/Like"
 
 export default function Card({ card, onCardClick, onCardLike, onDelete }) {
   const currentUser = useContext(CurrentUserContext)
   const isLiked = card.likes.some((i) => i._id === currentUser._id);
-  // Создаём переменную, которую после зададим в `className` для кнопки лайка
-  const cardLikeButtonClassName = `element__like ${
-    isLiked && "element__like_type_active"
-  }`
+  const cardLikeButtonClassName = `element__like ${isLiked && "element__like_type_active"
+    }`
   function handleLikeClick() {
     onCardLike(card);
   }
@@ -22,12 +19,12 @@ export default function Card({ card, onCardClick, onCardLike, onDelete }) {
       <div className="element__description">
         <h2 className="element__title">{card.name}</h2>
         <div className="element__container">
-        <button
+          <button
             type="button"
             className={cardLikeButtonClassName}
             onClick={handleLikeClick}
           />
-        <span className="element__counter">{card.likes.length}</span>
+          <span className="element__counter">{card.likes.length}</span>
         </div>
       </div>
     </article>
