@@ -13,6 +13,16 @@ class Api {
     return fetch(endpoint, options).then(this._checkResponse);
   }
 
+  changeLikeCardStatus(cardId, isLiked) {
+    const method = isLiked ? 'PUT' : 'DELETE';
+    return this._request(`${this._url}/cards/likes/${cardId}`, {
+      method,
+      headers: {
+        authorization: this._authorization,
+      },
+    });
+  }
+
   getInfo() {
     return this._request(`${this._url}/users/me`, {
       headers: {
@@ -75,7 +85,10 @@ class Api {
 
   deleteCard(cardId) {
     return this._request(`${this._url}/cards/${cardId}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization,
+      },
     });
   }
 }
