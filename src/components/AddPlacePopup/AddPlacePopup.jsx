@@ -2,7 +2,7 @@ import useFormValidation from "../../utils/useFormValidation";
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
 
 
-export default function AddPlacePopup({ isOpen, onClose, onAddPlace, loadingButtonDelete }) {
+export default function AddPlacePopup({ isOpen, onClose, onAddPlace, isLoading }) {
 
   const { values, errors, isValid, isInputValid, handleChange, reset, } = useFormValidation()
 
@@ -36,7 +36,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace, loadingButt
         maxLength={30}
         required=""
         value={values.name ? values.name : ''}
-        disabled={loadingButtonDelete}
+        disabled={isLoading}
         onChange={handleChange}
       />
       <span className="popup__error" id="cardInputName-error">{errors.name}</span>
@@ -48,7 +48,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace, loadingButt
         placeholder="Ссылка на изображение"
         required=""
         value={values.link ? values.link : ''}
-        disabled={loadingButtonDelete}
+        disabled={isLoading}
         onChange={handleChange}
       />
       <span className="popup__error" id="cardInputLink-error" >{errors.link}</span>

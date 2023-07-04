@@ -25,7 +25,7 @@ function App() {
   const [loading, setLoading] = useState(true)
   const [cards, setCards] = useState([])
   const [deleteCardId, setDeleteCardId] = useState('')
-  const [loadingButtonDelete, setLoadingButtonDelete] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
 
   const setStatesForCloseAllPopups = useCallback(() => {
@@ -82,22 +82,19 @@ function App() {
 
 
   function handleUpdateUser(dataUser, reset) {
-    setLoadingButtonDelete(true)
+    setIsLoading(true)
     api.setUserInfo(dataUser)
       .then(res => {
         setCurrentUser(res)
         closeAllPopups()
         reset()
-        setLoadingButtonDelete(false)
       })
       .catch((error) => console.error(`Ошибка при вводе данных ${error}`))
-      .finally(() => setLoadingButtonDelete(false))
+      .finally(() => setIsLoading(false))
   }
 
   function handleCardLike(card) {
-    // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
-    // Отправляем запрос в API и получаем обновлённые данные карточки
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -110,29 +107,27 @@ function App() {
 
 
   function handleUpdateAvatar(dataUser, reset) {
-    setLoadingButtonDelete(true)
+    setIsLoading(true)
     api.setAddNewAvatar(dataUser)
       .then(res => {
         setCurrentUser(res)
         closeAllPopups()
         reset()
-        setLoadingButtonDelete(false)
       })
       .catch((error) => console.error(`Ошибка при обновлении аватара ${error}`))
-      .finally(() => setLoadingButtonDelete(false))
+      .finally(() => setIsLoading(false))
   }
 
   function handleSubmitPlace(dataCard, reset) {
-    setLoadingButtonDelete(true)
+    setIsLoading(true)
     api.addCard(dataCard)
       .then((res) => {
         setCards([res, ...cards])
         closeAllPopups()
         reset()
-        setLoadingButtonDelete(false)
       })
       .catch((error) => console.error(`Ошибка добавления карточки ${error}`))
-      .finally(() => setLoadingButtonDelete(false))
+      .finally(() => setIsLoading(false))
   }
 
   useEffect(() => {
@@ -148,17 +143,16 @@ function App() {
 
   function handleDeleteSubmit(evt) {
     evt.preventDefault()
-    setLoadingButtonDelete(true)
+    setIsLoading(true)
     api.deleteCard(deleteCardId)
       .then(() => {
         setCards(cards.filter(card => {
           return card._id !== deleteCardId
         }))
         closeAllPopups()
-        setLoadingButtonDelete(false)
       })
       .catch((error) => console.error(`Ошибка удаления карточки ${error}`))
-      .finally(() => setLoadingButtonDelete(false))
+      .finally(() => setIsLoading(false))
   }
 
   return (
@@ -185,21 +179,21 @@ function App() {
           onUpdateUser={handleUpdateUser}
           isOpen={isEditProfilePopupOpen}
           onClose={closeAllPopups}
-          loadingButtonDelete={loadingButtonDelete}
+          isLoading={isLoading}
         />
 
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onAddPlace={handleSubmitPlace}
           onClose={closeAllPopups}
-          loadingButtonDelete={loadingButtonDelete}
+          isLoading={isLoading}
         />
 
         <EditAvatarPopup
           onUpdateAvatar={handleUpdateAvatar}
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-          loadingButtonDelete={loadingButtonDelete}
+          isLoading={isLoading}
         />
 
         <PopupWithForm
@@ -208,7 +202,7 @@ function App() {
           titleButton='Да'
           isOpen={isDeletePopup}
           onSubmit={handleDeleteSubmit}
-          loadingButtonDelete={loadingButtonDelete}
+          isLoading={isLoading}
           onClose={closeAllPopups}
         />
 

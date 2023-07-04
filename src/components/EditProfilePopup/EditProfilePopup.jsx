@@ -3,7 +3,7 @@ import useFormValidation from "../../utils/useFormValidation"
 import PopupWithForm from "../PopupWithForm/PopupWithForm"
 import CurrentUserContext from "../../contexts/CurrentUserContext"
 
-export default function EditProfilePopup({isOpen, onClose, onUpdateUser, loadingButtonDelete}) {
+export default function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoading}) {
   const currentUser = useContext(CurrentUserContext)
   const { values, errors, isValid, isInputValid, handleChange, reset, setValue } = useFormValidation()
 
@@ -29,7 +29,7 @@ function handleSubmit(evt) {
           isOpen={isOpen}
           onClose={resetClose}
           isValid={isValid}
-          loadingButtonDelete={loadingButtonDelete}
+          isLoading={isLoading}
           onSubmit={handleSubmit}
         > <input
             className={`popup__input popup__input_type_name ${isInputValid.name === undefined || isInputValid.name ? '' : 'popup__error'}`}
@@ -41,7 +41,7 @@ function handleSubmit(evt) {
             id="popupProfileName"
             required=""
             value={values.name ? values.name : ''}
-            disabled={loadingButtonDelete}
+            disabled={isLoading}
             onChange={handleChange}
           />
           <span className="popup__error" id="popupProfileName-error" >
@@ -57,7 +57,7 @@ function handleSubmit(evt) {
             id="popupProfileInfo"
             required=""
             value={values.info ? values.info : ''}
-            disabled={loadingButtonDelete}
+            disabled={isLoading}
             onChange={handleChange}
           />
           <span className="popup__error" id="popupProfileInfo-error" >

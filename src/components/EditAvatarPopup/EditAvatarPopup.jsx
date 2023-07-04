@@ -3,7 +3,7 @@ import useFormValidation from "../../utils/useFormValidation"
 import PopupWithForm from "../PopupWithForm/PopupWithForm"
 
 
-export default function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, loadingButtonDelete}) {
+export default function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoading}) {
 
   const { values, errors, isValid, isInputValid, handleChange, reset, } = useFormValidation()
   const input = useRef()
@@ -23,7 +23,7 @@ export default function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, loadin
       name='popupAvatar'
       title='Обновить аватар'
       isOpen={isOpen}
-      loadingButtonDelete={loadingButtonDelete}
+      isLoading={isLoading}
       onClose={resetClose}
       onSubmit={handleSubmit}
       isValid={isValid}
@@ -37,7 +37,7 @@ export default function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, loadin
         placeholder="Ссылка на изображение"
         required=""
         value={values.avatar ? values.avatar : ''}
-        disabled={loadingButtonDelete}
+        disabled={isLoading}
         onChange={handleChange}
       />
       <span className="popup__error" id="cardInputLinkAvatar-error">{errors.avatar}</span>
